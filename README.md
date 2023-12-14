@@ -18,13 +18,13 @@ This is a library for convenient and uncomplicated work with local filesystem wi
 ## Installation
 Run
 ```
-$ php composer.phar require max-s-lab/filesystem "~1.0.0"
+$ php composer.phar require max-s-lab/filesystem
 ```
 
 or add
 
 ```
-"max-s-lab/filesystem": "~1.0.0"
+"max-s-lab/filesystem": "^1.1"
 ```
 
 to the ```require``` section of your `composer.json` file.
