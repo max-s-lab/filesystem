@@ -140,7 +140,7 @@ class FilesystemCore
      */
     public function deleteDirectory(string $path): bool
     {
-        $pathnames = $this->findPathnames($path);
+        $pathnames = $this->findAllPathnames($path);
 
         if ($pathnames === null) {
             return false;
@@ -174,7 +174,7 @@ class FilesystemCore
             }
         }
 
-        $pathnames = $this->findPathnames($path);
+        $pathnames = $this->findAllPathnames($path);
 
         if ($pathnames === null) {
             return false;
@@ -204,14 +204,14 @@ class FilesystemCore
             }
         }
 
-        $pathnames = $this->findPathnames($path);
+        $pathnames = $this->findAllPathnames($path);
 
         if ($pathnames === null) {
             return false;
         }
 
         foreach ($pathnames as $pathname) {
-            if (is_dir($pathname) && empty($this->findPathnames($pathname))) {
+            if (is_dir($pathname) && empty($this->findAllPathnames($pathname))) {
                 if (!$this->deleteDirectory($pathname)) {
                     return false;
                 }
@@ -224,7 +224,7 @@ class FilesystemCore
     /**
      * @return string[]|null
      */
-    private function findPathnames(string $path): ?array
+    private function findAllPathnames(string $path): ?array
     {
         if (substr($path, -1) === DIRECTORY_SEPARATOR) {
             $path = $path . "*";
