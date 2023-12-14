@@ -43,7 +43,7 @@ class FilesystemCore
     /**
      * @throws FilesystemException
      */
-    public function listElements(string $pattern): ?array
+    public function listPathnames(string $pattern): ?array
     {
         return $this->operationManager->wrap(function () use ($pattern) {
             $elements = glob($pattern);

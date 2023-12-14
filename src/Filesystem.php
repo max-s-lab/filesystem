@@ -68,9 +68,9 @@ class Filesystem
     /**
      * @throws FilesystemException
      */
-    public function listElements(string $pattern): ?array
+    public function listPathnames(string $pattern): ?array
     {
-        return $this->core->listElements($this->prepareFullPath($pattern));
+        return $this->core->listPathnames($this->prepareFullPath($pattern));
     }
 
     /**
