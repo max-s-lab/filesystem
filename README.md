@@ -44,10 +44,17 @@ use MaxSLab\Filesystem\Filesystem;
 $filesystem = new Filesystem('/var/www/some-directory');
 ```
 
+### Common methods
+```
+$filesystem->prepareFullPath('test.txt');
+$filesystem->prepareFullPath('test-directory');
+$filesystem->listPathnames('*.txt');
+```
+
 ### Check existing methods
 ```
 $filesystem->fileExists('test.txt');
-$filesystem->directoryExists('test.txt');
+$filesystem->directoryExists('test-directory');
 ```
 
 ### Uploading and deleting a file
