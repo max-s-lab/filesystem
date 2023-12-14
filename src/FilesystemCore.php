@@ -43,6 +43,17 @@ class FilesystemCore
     /**
      * @throws FilesystemException
      */
+    public function listElements(string $pattern): ?array
+    {
+        return $this->operationManager->wrap(function () use ($pattern) {
+            $elements = glob($pattern);
+            return $elements !== false ? $elements : null;
+        }, null);
+    }
+
+    /**
+     * @throws FilesystemException
+     */
     public function getFileContent(string $path): ?string
     {
         return $this->operationManager->wrap(function () use ($path) {
@@ -79,7 +90,8 @@ class FilesystemCore
     public function getFileLastModifiedTime(string $path): ?int
     {
         return $this->operationManager->wrap(function () use ($path) {
-            return filemtime($path);
+            $filemtime = filemtime($path);
+            return $filemtime !== false ? $filemtime : null;
         }, null);
     }
 

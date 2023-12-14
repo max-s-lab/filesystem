@@ -68,6 +68,14 @@ class Filesystem
     /**
      * @throws FilesystemException
      */
+    public function listElements(string $pattern): ?array
+    {
+        return $this->core->listElements($this->prepareFullPath($pattern));
+    }
+
+    /**
+     * @throws FilesystemException
+     */
     public function getFileContent(string $path): ?string
     {
         return $this->core->getFileContent($this->prepareFullPath($path));
