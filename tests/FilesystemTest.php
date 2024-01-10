@@ -2,21 +2,24 @@
 
 namespace MaxSLab\Filesystem\Tests;
 
-use PHPUnit\Framework\TestCase;
 use MaxSLab\Filesystem\Filesystem;
+use PHPUnit\Framework\TestCase;
 
 /**
  * @author Maksim Spirkov <spirkov.2001@mail.ru>
  */
 class FilesystemTest extends TestCase
 {
-    const FILE_NAME = 'test.txt';
-    const FILE_CONTENT = 'Test file';
+    private const FILE_NAME = 'test.txt';
+    private const FILE_CONTENT = 'Test file';
 
-    const TEST_DIRECTORY = 'test-dir';
-    const NON_EMPTY_DIRECTORY = 'non-empty';
-    const COPYING_DIRECTORY = 'test-copying';
-    const MOVING_DIRECTORY = 'test-moving';
+    private const TEST_DIRECTORY = 'test-dir';
+    private const NON_EMPTY_DIRECTORY = 'non-empty';
+    private const COPYING_DIRECTORY = 'test-copying';
+    private const MOVING_DIRECTORY = 'test-moving';
+
+    private const NOT_EXISTING_DIRECTORY_NAME = 'not-existing-dir';
+    private const NOT_EXISTING_FILE_NAME = 'not-existing-dir.txt';
 
     /** @var Filesystem */
     private $filesystem;
@@ -33,6 +36,8 @@ class FilesystemTest extends TestCase
 
         $this->filesystem->deleteDirectory(self::TEST_DIRECTORY);
         $this->assertFalse($this->filesystem->directoryExists(self::TEST_DIRECTORY));
+
+        $this->assertFalse($this->filesystem->deleteDirectory(self::NOT_EXISTING_DIRECTORY_NAME));
     }
 
     public function testUploadingFile()
@@ -54,6 +59,8 @@ class FilesystemTest extends TestCase
 
         $this->filesystem->deleteFile(self::FILE_NAME);
         $this->assertFalse($this->filesystem->fileExists(self::FILE_NAME));
+
+        $this->assertFalse($this->filesystem->deleteFile(self::NOT_EXISTING_FILE_NAME));
     }
 
     public function testCopyingFile()
