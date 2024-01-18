@@ -14,16 +14,27 @@ class FilesystemOperationManager
         $this->strictMode = $strictMode;
     }
 
+    /**
+     * @throws FilesystemException
+     */
     public function wrap(callable $function, $errorReturnValue)
     {
         try {
             return $function();
         } catch (Throwable $e) {
-            if ($this->strictMode) {
-                throw new FilesystemException($e->getMessage());
-            } else {
-                return $errorReturnValue;
-            }
+            return $this->processError($e->getMessage(), $errorReturnValue);
         }
+    }
+
+    /**
+     * @throws FilesystemException
+     */
+    public function processError(string $message, $value)
+    {
+        if ($this->strictMode) {
+            throw new FilesystemException($message);
+        }
+
+        return $value;
     }
 }

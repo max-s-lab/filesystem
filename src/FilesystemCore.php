@@ -9,15 +9,11 @@ namespace MaxSLab\Filesystem;
  */
 class FilesystemCore
 {
-    /** @var bool */
-    private $strictMode;
-
     /** @var FilesystemOperationManager */
     private $operationManager;
 
     public function __construct(bool $strictMode)
     {
-        $this->strictMode = $strictMode;
         $this->operationManager = new FilesystemOperationManager($strictMode);
     }
 
@@ -167,11 +163,7 @@ class FilesystemCore
     public function deleteAllDirectories(string $path): bool
     {
         if (!is_dir($path)) {
-            if ($this->strictMode) {
-                throw new FilesystemException('The specified path is not a directory.');
-            } else {
-                return false;
-            }
+            return $this->operationManager->processError('The specified path is not a directory.', false);
         }
 
         $pathnames = $this->findAllPathnames($path);
@@ -181,10 +173,12 @@ class FilesystemCore
         }
 
         foreach ($pathnames as $pathname) {
-            if (is_dir($pathname)) {
-                if (!$this->deleteDirectory($pathname)) {
-                    return false;
-                }
+            if (!is_dir($pathname)) {
+                continue;
+            }
+
+            if (!$this->deleteDirectory($pathname)) {
+                return false;
             }
         }
 
@@ -197,11 +191,7 @@ class FilesystemCore
     public function deleteEmptyDirectories(string $path): bool
     {
         if (!is_dir($path)) {
-            if ($this->strictMode) {
-                throw new FilesystemException('The specified path is not a directory.');
-            } else {
-                return false;
-            }
+            return $this->operationManager->processError('The specified path is not a directory.', false);
         }
 
         $pathnames = $this->findAllPathnames($path);
@@ -211,10 +201,12 @@ class FilesystemCore
         }
 
         foreach ($pathnames as $pathname) {
-            if (is_dir($pathname) && empty($this->findAllPathnames($pathname))) {
-                if (!$this->deleteDirectory($pathname)) {
-                    return false;
-                }
+            if (!is_dir($pathname) || !empty($this->findAllPathnames($pathname))) {
+                continue;
+            }
+
+            if (!$this->deleteDirectory($pathname)) {
+                return false;
             }
         }
 
@@ -235,11 +227,7 @@ class FilesystemCore
         $pathnames = glob($path);
 
         if ($pathnames === false) {
-            if ($this->strictMode) {
-                throw new FilesystemException('An attempt to search files/directories failed.');
-            } else {
-                return null;
-            }
+            return $this->operationManager->processError('An attempt to search files/directories failed.', null);
         }
 
         return $pathnames;
