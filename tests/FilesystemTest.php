@@ -26,7 +26,7 @@ class FilesystemTest extends TestCase
 
     public function setUp(): void
     {
-        $this->filesystem = new Filesystem(__DIR__ . '/../test-tmp');
+        $this->filesystem = new Filesystem(dirname(__DIR__) . '/test-tmp');
     }
 
     public function testDeletingDirectory()
@@ -127,6 +127,6 @@ class FilesystemTest extends TestCase
 
     protected function tearDown(): void
     {
-        $this->filesystem = null;
+        $this->filesystem->deleteDirectory('');
     }
 }

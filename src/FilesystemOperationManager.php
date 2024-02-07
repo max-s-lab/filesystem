@@ -2,8 +2,6 @@
 
 namespace MaxSLab\Filesystem;
 
-use Throwable;
-
 class FilesystemOperationManager
 {
     /** @var bool */
@@ -17,13 +15,16 @@ class FilesystemOperationManager
     /**
      * @throws FilesystemException
      */
-    public function wrap(callable $function, $errorReturnValue)
+    public function wrap(callable $function)
     {
-        try {
-            return $function();
-        } catch (Throwable $e) {
-            return $this->processError($e->getMessage(), $errorReturnValue);
+        $result = @$function();
+        $error = error_get_last();
+
+        if ($this->strictMode && $error !== null) {
+            throw new FilesystemException($error['message']);
         }
+
+        return $result;
     }
 
     /**

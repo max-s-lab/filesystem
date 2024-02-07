@@ -1,0 +1,10 @@
+parameters:
+    level: 5
+    
+    parallel:
+        processTimeout: 90.0
+        maximumNumberOfProcesses: 12
+    
+    excludePaths:
+        analyse:
+            - vendor

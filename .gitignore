@@ -1,4 +1,7 @@
-/vendor/
-/test-tmp/
-composer.lock
+.php-cs-fixer.cache
 .phpunit.result.cache
+
+composer.lock
+
+/vendor
+/test-tmp

@@ -4,10 +4,10 @@ namespace MaxSLab\Filesystem;
 
 /**
  * The Filesystem class is a class that allows to work with local filesystem.
- * This class allows you to upload files without creating a directory for them in advance and 
+ * This class allows you to upload files without creating a directory for them in advance and
  * you not to worry about symbols separating directories and adapts to the operating system.
  * Important note! All paths passed to the function are relative.
- * 
+ *
  * @author Maksim Spirkov <spirkov.2001@mail.ru>
  * @since 2023-11-20
  * @category Filesystem
@@ -21,10 +21,10 @@ class Filesystem
     /** @var FilesystemCore */
     private $core;
 
-    /** 
+    /**
      * @param string $location The absolute path to the directory where the actions will be performed.
-     * @param bool $strictMode This attribute determines the severity of error handling. 
-     * If an error has occurred and the mode is enabled, an exception will be thrown. 
+     * @param bool $strictMode This attribute determines the severity of error handling.
+     * If an error has occurred and the mode is enabled, an exception will be thrown.
      * If turned off, the error will be caught automatically.
      */
     public function __construct(string $location, bool $strictMode = false)
@@ -57,7 +57,7 @@ class Filesystem
 
     /**
      * Uploading a file with creating a directory for it.
-     * 
+     *
      * @throws FilesystemException
      */
     public function uploadFile(string $path, string $content): bool
@@ -131,7 +131,7 @@ class Filesystem
 
     /**
      * Recursive creating a directory.
-     * 
+     *
      * @throws FilesystemException
      */
     public function createDirectory(string $path, int $permissions = 0777): bool
@@ -141,7 +141,7 @@ class Filesystem
 
     /**
      * Recursive deleting a directory.
-     * 
+     *
      * @throws FilesystemException
      */
     public function deleteDirectory(string $path): bool
@@ -150,9 +150,9 @@ class Filesystem
     }
 
     /**
-     * Deleting all directories together with the files attached to them from a specific directory, 
+     * Deleting all directories together with the files attached to them from a specific directory,
      * leaving only the files in the root of the directory.
-     * 
+     *
      * @throws FilesystemException
      */
     public function deleteAllDirectories(string $path): bool
@@ -161,9 +161,9 @@ class Filesystem
     }
 
     /**
-     * Deleting empty directories from a specific directory, 
+     * Deleting empty directories from a specific directory,
      * leaving only the files and non empty directories in the root of the directory.
-     * 
+     *
      * @throws FilesystemException
      */
     public function deleteEmptyDirectories(string $path): bool

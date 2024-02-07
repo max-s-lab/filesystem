@@ -3,8 +3,8 @@
 namespace MaxSLab\Filesystem;
 
 /**
- * This class is the core of the filesystem. 
- * It contains the basic methods of working with the filesystem. 
+ * This class is the core of the filesystem.
+ * It contains the basic methods of working with the filesystem.
  * All paths passed to methods are absolute.
  */
 class FilesystemCore
@@ -33,7 +33,7 @@ class FilesystemCore
 
         return $this->operationManager->wrap(function () use ($path, $content) {
             return file_put_contents($path, $content) !== false;
-        }, false);
+        });
     }
 
     /**
@@ -44,7 +44,7 @@ class FilesystemCore
         return $this->operationManager->wrap(function () use ($pattern) {
             $elements = glob($pattern);
             return $elements !== false ? $elements : null;
-        }, null);
+        });
     }
 
     /**
@@ -55,7 +55,7 @@ class FilesystemCore
         return $this->operationManager->wrap(function () use ($path) {
             $fileContent = file_get_contents($path);
             return $fileContent !== false ? $fileContent : null;
-        }, null);
+        });
     }
 
     /**
@@ -66,7 +66,7 @@ class FilesystemCore
         return $this->operationManager->wrap(function () use ($path) {
             $fileSize = filesize($path);
             return $fileSize !== false ? $fileSize : null;
-        }, null);
+        });
     }
 
     /**
@@ -77,7 +77,7 @@ class FilesystemCore
         return $this->operationManager->wrap(function () use ($path) {
             $mimeType = mime_content_type($path);
             return $mimeType !== false ? $mimeType : null;
-        }, null);
+        });
     }
 
     /**
@@ -88,7 +88,7 @@ class FilesystemCore
         return $this->operationManager->wrap(function () use ($path) {
             $filemtime = filemtime($path);
             return $filemtime !== false ? $filemtime : null;
-        }, null);
+        });
     }
 
     /**
@@ -98,7 +98,7 @@ class FilesystemCore
     {
         return $this->operationManager->wrap(function () use ($path) {
             return unlink($path);
-        }, false);
+        });
     }
 
     /**
@@ -108,7 +108,7 @@ class FilesystemCore
     {
         return $this->operationManager->wrap(function () use ($oldPath, $newPath) {
             return copy($oldPath, $newPath);
-        }, false);
+        });
     }
 
     /**
@@ -118,7 +118,7 @@ class FilesystemCore
     {
         return $this->operationManager->wrap(function () use ($oldPath, $newPath) {
             return rename($oldPath, $newPath);
-        }, false);
+        });
     }
 
     /**
@@ -128,7 +128,7 @@ class FilesystemCore
     {
         return $this->operationManager->wrap(function () use ($path, $permissions) {
             return mkdir($path, $permissions, true);
-        }, false);
+        });
     }
 
     /**
@@ -154,7 +154,7 @@ class FilesystemCore
 
         return $this->operationManager->wrap(function () use ($path) {
             return rmdir($path);
-        }, false);
+        });
     }
 
     /**

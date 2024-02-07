@@ -24,7 +24,10 @@
         "ext-fileinfo": "*"
     },
     "require-dev": {
-        "phpunit/phpunit": "~9.6.0"
+        "phpunit/phpunit": "~9.6.0",
+        "friendsofphp/php-cs-fixer": "^3.4",
+        "phpro/grumphp": "^1.5",
+        "phpstan/phpstan": "^1.10"
     },
     "autoload": {
         "psr-4": {
@@ -34,6 +37,11 @@
     "autoload-dev": {
         "psr-4": {
             "MaxSLab\\Filesystem\\Tests\\": "tests/"
+        }
+    },
+    "config": {
+        "allow-plugins": {
+            "phpro/grumphp": true
         }
     }
 }
