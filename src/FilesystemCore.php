@@ -219,9 +219,9 @@ class FilesystemCore
     private function findAllPathnames(string $path): ?array
     {
         if (substr($path, -1) === DIRECTORY_SEPARATOR) {
-            $path = $path . "*";
+            $path = $path . '*';
         } else {
-            $path = $path . DIRECTORY_SEPARATOR . "*";
+            $path = $path . DIRECTORY_SEPARATOR . '*';
         }
 
         $pathnames = glob($path);
