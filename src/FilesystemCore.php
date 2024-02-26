@@ -20,7 +20,7 @@ class FilesystemCore
     /**
      * @throws FilesystemException
      */
-    public function uploadFile(string $path, string $content): bool
+    public function uploadFile(string $path, string $content, int $flags = 0): bool
     {
         $fileName = basename($path);
         $fileDirectory = str_replace($fileName, '', $path);
@@ -31,8 +31,8 @@ class FilesystemCore
             }
         }
 
-        return $this->operationManager->wrap(function () use ($path, $content) {
-            return file_put_contents($path, $content) !== false;
+        return $this->operationManager->wrap(function () use ($path, $content, $flags) {
+            return file_put_contents($path, $content, $flags) !== false;
         });
     }
 

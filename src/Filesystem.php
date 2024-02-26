@@ -60,9 +60,9 @@ class Filesystem
      *
      * @throws FilesystemException
      */
-    public function uploadFile(string $path, string $content): bool
+    public function uploadFile(string $path, string $content, int $flags = 0): bool
     {
-        return $this->core->uploadFile($this->prepareFullPath($path), $content);
+        return $this->core->uploadFile($this->prepareFullPath($path), $content, $flags);
     }
 
     /**
