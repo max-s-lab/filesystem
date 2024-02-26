@@ -2,7 +2,7 @@ grumphp:
     process_timeout: 300
     tasks:
         phpcsfixer:
-            config: .php-сs-fixer.dist.php
+            config: .php-cs-fixer.dist.php
         phpstan:
             configuration: phpstan.neon
         phpunit:
