@@ -3,7 +3,7 @@
 </h1>
 
 [![Latest Version](https://img.shields.io/github/tag/max-s-lab/filesystem.svg)](https://github.com/max-s-lab/filesystem/releases)
-![php 7.3+](https://img.shields.io/badge/php-min%207.3.0-blue.svg)
+![php 7.4+](https://img.shields.io/badge/php-min%207.4.0-blue.svg)
 [![Software License](https://img.shields.io/badge/license-MIT-brightgreen.svg)](https://github.com/max-s-lab/filesystem/blob/master/LICENSE)
 
 This is a library for convenient and uncomplicated work with local filesystem without unnecessary dependencies, which uses only PHP.
@@ -24,7 +24,7 @@ $ php composer.phar require max-s-lab/filesystem
 or add
 
 ```
-"max-s-lab/filesystem": "^1.3"
+"max-s-lab/filesystem": "^2.0"
 ```
 
 to the ```require``` section of your `composer.json` file.
