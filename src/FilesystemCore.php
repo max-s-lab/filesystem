@@ -41,8 +41,7 @@ class FilesystemCore
     public function listPathnames(string $pattern): ?array
     {
         return $this->operationManager->wrap(function () use ($pattern) {
-            $elements = glob($pattern);
-            return $elements !== false ? $elements : null;
+            return $this->returnSuccessResultOrNull(glob($pattern));
         });
     }
 
@@ -52,8 +51,7 @@ class FilesystemCore
     public function getFileContent(string $path): ?string
     {
         return $this->operationManager->wrap(function () use ($path) {
-            $fileContent = file_get_contents($path);
-            return $fileContent !== false ? $fileContent : null;
+            return $this->returnSuccessResultOrNull(file_get_contents($path));
         });
     }
 
@@ -63,8 +61,7 @@ class FilesystemCore
     public function getFileSize(string $path): ?int
     {
         return $this->operationManager->wrap(function () use ($path) {
-            $fileSize = filesize($path);
-            return $fileSize !== false ? $fileSize : null;
+            return $this->returnSuccessResultOrNull(filesize($path));
         });
     }
 
@@ -74,8 +71,7 @@ class FilesystemCore
     public function getFileMimeType(string $path): ?string
     {
         return $this->operationManager->wrap(function () use ($path) {
-            $mimeType = mime_content_type($path);
-            return $mimeType !== false ? $mimeType : null;
+            return $this->returnSuccessResultOrNull(mime_content_type($path));
         });
     }
 
@@ -85,8 +81,7 @@ class FilesystemCore
     public function getFileLastModifiedTime(string $path): ?int
     {
         return $this->operationManager->wrap(function () use ($path) {
-            $filemtime = filemtime($path);
-            return $filemtime !== false ? $filemtime : null;
+            return $this->returnSuccessResultOrNull(filemtime($path));
         });
     }
 
@@ -230,5 +225,10 @@ class FilesystemCore
         }
 
         return $pathnames;
+    }
+
+    protected function returnSuccessResultOrNull($result)
+    {
+        return $result !== false ? $result : null;
     }
 }
