@@ -15,9 +15,9 @@ namespace MaxSLab\Filesystem;
  */
 class Filesystem
 {
-    private string $location;
+    protected string $location;
 
-    private FilesystemCore $core;
+    protected FilesystemCore $core;
 
     /**
      * @param string $location The absolute path to the directory where the actions will be performed.

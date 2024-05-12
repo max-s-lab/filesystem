@@ -9,7 +9,7 @@ namespace MaxSLab\Filesystem;
  */
 class FilesystemCore
 {
-    private FilesystemOperationManager $operationManager;
+    protected FilesystemOperationManager $operationManager;
 
     public function __construct(bool $strictMode)
     {
@@ -215,7 +215,7 @@ class FilesystemCore
     /**
      * @return string[]|null
      */
-    private function findAllPathnames(string $path): ?array
+    protected function findAllPathnames(string $path): ?array
     {
         if (substr($path, -1) === DIRECTORY_SEPARATOR) {
             $path = $path . '*';
