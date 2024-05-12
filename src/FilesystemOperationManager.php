@@ -4,8 +4,7 @@ namespace MaxSLab\Filesystem;
 
 class FilesystemOperationManager
 {
-    /** @var bool */
-    private $strictMode;
+    private bool $strictMode;
 
     public function __construct(bool $strictMode)
     {

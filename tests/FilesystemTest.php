@@ -21,8 +21,7 @@ class FilesystemTest extends TestCase
     private const NOT_EXISTING_DIRECTORY_NAME = 'not-existing-dir';
     private const NOT_EXISTING_FILE_NAME = 'not-existing-dir.txt';
 
-    /** @var Filesystem */
-    private $filesystem;
+    private Filesystem $filesystem;
 
     public function setUp(): void
     {

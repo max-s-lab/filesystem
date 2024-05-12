@@ -9,8 +9,7 @@ namespace MaxSLab\Filesystem;
  */
 class FilesystemCore
 {
-    /** @var FilesystemOperationManager */
-    private $operationManager;
+    private FilesystemOperationManager $operationManager;
 
     public function __construct(bool $strictMode)
     {
