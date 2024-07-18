@@ -102,6 +102,11 @@ class FilesystemTest extends TestCase
 
         $this->filesystem->copyFile(self::FILE_NAME, self::COPYING_DIRECTORY . '/' . self::FILE_NAME);
         $this->assertTrue($this->filesystem->fileExists(self::COPYING_DIRECTORY . '/' . self::FILE_NAME));
+
+        $this->assertFalse($this->filesystem->copyFile(
+            self::NOT_EXISTING_FILE_NAME,
+            self::COPYING_DIRECTORY . '/' . self::FILE_NAME
+        ));
     }
 
     public function testMovingFile()
@@ -112,6 +117,11 @@ class FilesystemTest extends TestCase
         $this->filesystem->moveFile(self::FILE_NAME, self::MOVING_DIRECTORY . '/' . self::FILE_NAME);
         $this->assertFalse($this->filesystem->fileExists(self::FILE_NAME));
         $this->assertTrue($this->filesystem->fileExists(self::MOVING_DIRECTORY . '/' . self::FILE_NAME));
+
+        $this->assertFalse($this->filesystem->moveFile(
+            self::NOT_EXISTING_FILE_NAME,
+            self::MOVING_DIRECTORY . '/' . self::FILE_NAME
+        ));
     }
 
     public function testDeletingAllDirectories()
@@ -126,9 +136,10 @@ class FilesystemTest extends TestCase
 
         $this->filesystem->deleteAllDirectories(self::TEST_DIRECTORY);
 
+        $this->assertTrue($this->filesystem->directoryExists(self::TEST_DIRECTORY));
         $this->assertEquals([], $this->filesystem->listPathnames(self::TEST_DIRECTORY . '/*'));
 
-        $this->assertTrue($this->filesystem->directoryExists(self::TEST_DIRECTORY));
+        $this->assertFalse($this->filesystem->deleteAllDirectories(self::NOT_EXISTING_DIRECTORY_NAME));
 
         $this->filesystem->deleteDirectory(self::TEST_DIRECTORY);
     }
@@ -141,9 +152,10 @@ class FilesystemTest extends TestCase
 
         $this->filesystem->deleteEmptyDirectories(self::TEST_DIRECTORY);
 
+        $this->assertTrue($this->filesystem->directoryExists(self::TEST_DIRECTORY));
         $this->assertEquals([], $this->filesystem->listPathnames(self::TEST_DIRECTORY . '/*'));
 
-        $this->assertTrue($this->filesystem->directoryExists(self::TEST_DIRECTORY));
+        $this->assertFalse($this->filesystem->deleteEmptyDirectories(self::NOT_EXISTING_DIRECTORY_NAME));
 
         $this->filesystem->deleteDirectory(self::TEST_DIRECTORY);
     }
@@ -164,6 +176,11 @@ class FilesystemTest extends TestCase
             [$this->filesystem->prepareFullPath($nonEmptyDirectory)],
             $this->filesystem->listPathnames(self::TEST_DIRECTORY . '/*')
         );
+
+        $this->assertFalse($this->filesystem->deleteEmptyDirectories(
+            self::NOT_EXISTING_DIRECTORY_NAME,
+            false
+        ));
 
         $this->filesystem->deleteDirectory(self::TEST_DIRECTORY);
     }
