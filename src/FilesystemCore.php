@@ -158,7 +158,10 @@ class FilesystemCore
     public function deleteAllDirectories(string $path): bool
     {
         if (!is_dir($path)) {
-            return $this->operationManager->processError('The specified path is not a directory.', false);
+            return $this->operationManager->processError(
+                'The specified path is not a directory.',
+                false
+            );
         }
 
         $pathnames = $this->findAllPathnames($path);
@@ -186,7 +189,10 @@ class FilesystemCore
     public function deleteEmptyDirectories(string $path, bool $recursive): bool
     {
         if (!is_dir($path)) {
-            return $this->operationManager->processError('The specified path is not a directory.', false);
+            return $this->operationManager->processError(
+                'The specified path is not a directory.',
+                false
+            );
         }
 
         $pathnames = $this->findAllPathnames($path);
@@ -234,7 +240,10 @@ class FilesystemCore
         $pathnames = glob($path);
 
         if ($pathnames === false) {
-            return $this->operationManager->processError('An attempt to search files/directories failed.', null);
+            return $this->operationManager->processError(
+                'An attempt to search files/directories failed.',
+                null
+            );
         }
 
         return $pathnames;
