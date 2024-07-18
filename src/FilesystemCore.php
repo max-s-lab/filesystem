@@ -149,9 +149,7 @@ class FilesystemCore
             }
         }
 
-        return $this->operationManager->wrap(function () use ($path) {
-            return rmdir($path);
-        });
+        return $this->deleteEmptyDirectory($path);
     }
 
     /**
@@ -202,7 +200,7 @@ class FilesystemCore
                 continue;
             }
 
-            if (!$this->deleteDirectory($pathname)) {
+            if (!$this->deleteEmptyDirectory($pathname)) {
                 return false;
             }
         }
@@ -240,6 +238,16 @@ class FilesystemCore
         $dirname = dirname($filePath);
 
         return is_dir($dirname) || $this->createDirectory($dirname);
+    }
+
+    /**
+     * @throws FilesystemException
+     */
+    protected function deleteEmptyDirectory(string $path): bool
+    {
+        return $this->operationManager->wrap(function () use ($path) {
+            return rmdir($path);
+        });
     }
 
     protected function returnSuccessResultOrNull($result)
