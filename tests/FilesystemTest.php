@@ -81,27 +81,6 @@ class FilesystemTest extends TestCase
         $this->assertTrue($this->filesystem->fileExists(self::MOVING_DIRECTORY . '/' . self::FILE_NAME));
     }
 
-    public function testDeletingEmptyDirectory()
-    {
-        $nonEmptyDirectory = self::TEST_DIRECTORY . '/' . self::NON_EMPTY_DIRECTORY;
-
-        $this->filesystem->uploadFile($nonEmptyDirectory . '/' . self::FILE_NAME, self::FILE_CONTENT);
-
-        for ($i = 0; $i < 3; $i++) {
-            $this->filesystem->createDirectory(self::TEST_DIRECTORY . "/$i");
-        }
-
-        $this->filesystem->deleteEmptyDirectories(self::TEST_DIRECTORY);
-
-        for ($i = 0; $i < 3; $i++) {
-            $this->assertFalse($this->filesystem->directoryExists(self::TEST_DIRECTORY . "/$i"));
-        }
-
-        $this->assertTrue($this->filesystem->directoryExists($nonEmptyDirectory));
-
-        $this->filesystem->deleteDirectory(self::TEST_DIRECTORY);
-    }
-
     public function testDeletingAllDirectory()
     {
         $nonEmptyDirectory = self::TEST_DIRECTORY . '/' . self::NON_EMPTY_DIRECTORY;
@@ -119,6 +98,48 @@ class FilesystemTest extends TestCase
         }
 
         $this->assertFalse($this->filesystem->directoryExists($nonEmptyDirectory));
+    }
+
+    public function testRecursiveDeletingEmptyDirectories()
+    {
+        $nonEmptyDirectory = self::TEST_DIRECTORY . '/' . self::NON_EMPTY_DIRECTORY;
+
+        $this->filesystem->uploadFile($nonEmptyDirectory . '/' . self::FILE_NAME, self::FILE_CONTENT);
+
+        for ($i = 0; $i < 3; $i++) {
+            $this->filesystem->createDirectory(self::TEST_DIRECTORY . "/$i/$i");
+        }
+
+        $this->filesystem->deleteEmptyDirectories(self::TEST_DIRECTORY);
+
+        for ($i = 0; $i < 3; $i++) {
+            $this->assertFalse($this->filesystem->directoryExists(self::TEST_DIRECTORY . "/$i"));
+        }
+
+        $this->assertTrue($this->filesystem->directoryExists($nonEmptyDirectory));
+
+        $this->filesystem->deleteDirectory(self::TEST_DIRECTORY);
+    }
+
+    public function testNonRecursiveDeletingEmptyDirectories()
+    {
+        $nonEmptyDirectory = self::TEST_DIRECTORY . '/' . self::NON_EMPTY_DIRECTORY;
+
+        $this->filesystem->uploadFile($nonEmptyDirectory . '/' . self::FILE_NAME, self::FILE_CONTENT);
+
+        for ($i = 0; $i < 3; $i++) {
+            $this->filesystem->createDirectory(self::TEST_DIRECTORY . "/$i");
+        }
+
+        $this->filesystem->deleteEmptyDirectories(self::TEST_DIRECTORY, false);
+
+        for ($i = 0; $i < 3; $i++) {
+            $this->assertFalse($this->filesystem->directoryExists(self::TEST_DIRECTORY . "/$i"));
+        }
+
+        $this->assertTrue($this->filesystem->directoryExists($nonEmptyDirectory));
+
+        $this->filesystem->deleteDirectory(self::TEST_DIRECTORY);
     }
 
     protected function tearDown(): void

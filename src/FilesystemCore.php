@@ -183,7 +183,7 @@ class FilesystemCore
     /**
      * @throws FilesystemException
      */
-    public function deleteEmptyDirectories(string $path): bool
+    public function deleteEmptyDirectories(string $path, bool $recursive): bool
     {
         if (!is_dir($path)) {
             return $this->operationManager->processError('The specified path is not a directory.', false);
@@ -196,8 +196,18 @@ class FilesystemCore
         }
 
         foreach ($pathnames as $pathname) {
-            if (!is_dir($pathname) || !empty($this->findAllPathnames($pathname))) {
+            if (!is_dir($pathname)) {
                 continue;
+            }
+
+            if (!empty($this->findAllPathnames($pathname))) {
+                if (!$recursive) {
+                    continue;
+                }
+
+                if (!$this->deleteEmptyDirectories($pathname, true)) {
+                    return false;
+                }
             }
 
             if (!$this->deleteEmptyDirectory($pathname)) {

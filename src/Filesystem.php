@@ -164,12 +164,12 @@ class Filesystem
 
     /**
      * Deleting empty directories from a specific directory,
-     * leaving only the files and non empty directories in the root of the directory.
+     * leaving only the files and non empty directories.
      *
      * @throws FilesystemException
      */
-    public function deleteEmptyDirectories(string $path): bool
+    public function deleteEmptyDirectories(string $path, bool $recursive = true): bool
     {
-        return $this->core->deleteEmptyDirectories($this->prepareFullPath($path));
+        return $this->core->deleteEmptyDirectories($this->prepareFullPath($path), $recursive);
     }
 }
