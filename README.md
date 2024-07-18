@@ -24,7 +24,7 @@ $ php composer.phar require max-s-lab/filesystem
 or add
 
 ```
-"max-s-lab/filesystem": "^2.0"
+"max-s-lab/filesystem": "^3.0"
 ```
 
 to the ```require``` section of your `composer.json` file.
