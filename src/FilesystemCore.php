@@ -212,6 +212,8 @@ class FilesystemCore
 
     /**
      * @return string[]|null
+     *
+     * @throws FilesystemException
      */
     protected function findAllPathnames(string $path): ?array
     {
