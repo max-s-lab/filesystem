@@ -1,5 +1,5 @@
 <h1 align="center">
-  MaxSLab Filesystem Library 
+  MaxSLab PHP Filesystem Library 
 </h1>
 
 [![Latest Version](https://img.shields.io/github/tag/max-s-lab/filesystem.svg)](https://github.com/max-s-lab/filesystem/releases)
