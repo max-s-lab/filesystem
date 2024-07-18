@@ -67,7 +67,6 @@ class FilesystemTest extends TestCase
         $this->filesystem->uploadFile(self::FILE_NAME, self::FILE_CONTENT);
         $this->assertTrue($this->filesystem->fileExists(self::FILE_NAME));
 
-        $this->filesystem->createDirectory(self::COPYING_DIRECTORY);
         $this->filesystem->copyFile(self::FILE_NAME, self::COPYING_DIRECTORY . '/' . self::FILE_NAME);
         $this->assertTrue($this->filesystem->fileExists(self::COPYING_DIRECTORY . '/' . self::FILE_NAME));
     }
@@ -77,9 +76,7 @@ class FilesystemTest extends TestCase
         $this->filesystem->uploadFile(self::FILE_NAME, self::FILE_CONTENT);
         $this->assertTrue($this->filesystem->fileExists(self::FILE_NAME));
 
-        $this->filesystem->createDirectory(self::MOVING_DIRECTORY);
         $this->filesystem->moveFile(self::FILE_NAME, self::MOVING_DIRECTORY . '/' . self::FILE_NAME);
-
         $this->assertFalse($this->filesystem->fileExists(self::FILE_NAME));
         $this->assertTrue($this->filesystem->fileExists(self::MOVING_DIRECTORY . '/' . self::FILE_NAME));
     }

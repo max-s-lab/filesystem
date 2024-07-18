@@ -112,6 +112,8 @@ class Filesystem
     }
 
     /**
+     * Copying a file with creating a directory for it.
+     *
      * @throws FilesystemException
      */
     public function copyFile(string $oldPath, string $newPath): bool
@@ -120,6 +122,8 @@ class Filesystem
     }
 
     /**
+     * Moving a file with creating a directory for it.
+     *
      * @throws FilesystemException
      */
     public function moveFile(string $oldPath, string $newPath): bool

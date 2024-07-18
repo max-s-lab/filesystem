@@ -21,13 +21,8 @@ class FilesystemCore
      */
     public function uploadFile(string $path, string $content, int $flags = 0): bool
     {
-        $fileName = basename($path);
-        $fileDirectory = str_replace($fileName, '', $path);
-
-        if (!is_dir($fileDirectory)) {
-            if (!$this->createDirectory($fileDirectory)) {
-                return false;
-            }
+        if (!$this->createDirectoryByFilePath($path)) {
+            return false;
         }
 
         return $this->operationManager->wrap(function () use ($path, $content, $flags) {
@@ -100,6 +95,10 @@ class FilesystemCore
      */
     public function copyFile(string $oldPath, string $newPath): bool
     {
+        if (!$this->createDirectoryByFilePath($newPath)) {
+            return false;
+        }
+
         return $this->operationManager->wrap(function () use ($oldPath, $newPath) {
             return copy($oldPath, $newPath);
         });
@@ -110,6 +109,10 @@ class FilesystemCore
      */
     public function moveFile(string $oldPath, string $newPath): bool
     {
+        if (!$this->createDirectoryByFilePath($newPath)) {
+            return false;
+        }
+
         return $this->operationManager->wrap(function () use ($oldPath, $newPath) {
             return rename($oldPath, $newPath);
         });
@@ -225,6 +228,16 @@ class FilesystemCore
         }
 
         return $pathnames;
+    }
+
+    /**
+     * @throws FilesystemException
+     */
+    protected function createDirectoryByFilePath(string $filePath): bool
+    {
+        $dirname = dirname($filePath);
+
+        return is_dir($dirname) || $this->createDirectory($dirname);
     }
 
     protected function returnSuccessResultOrNull($result)
