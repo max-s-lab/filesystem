@@ -19,7 +19,7 @@ class FilesystemCore
     /**
      * @throws FilesystemException
      */
-    public function uploadFile(string $path, string $content, int $flags = 0): bool
+    public function writeToFile(string $path, string $content, int $flags = 0): bool
     {
         if (!$this->createDirectoryByFilePath($path)) {
             return false;

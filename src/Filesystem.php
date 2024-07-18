@@ -54,13 +54,13 @@ class Filesystem
     }
 
     /**
-     * Uploading a file with creating a directory for it.
+     * Writing content to a file with the creation of a file and a directory for it.
      *
      * @throws FilesystemException
      */
-    public function uploadFile(string $path, string $content, int $flags = 0): bool
+    public function writeToFile(string $path, string $content, int $flags = 0): bool
     {
-        return $this->core->uploadFile($this->prepareFullPath($path), $content, $flags);
+        return $this->core->writeToFile($this->prepareFullPath($path), $content, $flags);
     }
 
     /**

@@ -57,9 +57,9 @@ $filesystem->fileExists('test.txt');
 $filesystem->directoryExists('test-directory');
 ```
 
-### Uploading and deleting a file
+### Writing to file and deleting a file
 ```
-$filesystem->uploadFile('test.txt', 'Test');
+$filesystem->writeToFile('test.txt', 'Test');
 $filesystem->deleteFile('test.txt');
 ```
 

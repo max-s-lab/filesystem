@@ -41,9 +41,9 @@ class FilesystemTest extends TestCase
         $this->assertFalse($this->filesystem->deleteDirectory(self::NOT_EXISTING_DIRECTORY_NAME));
     }
 
-    public function testUploadingAndDeletingFile()
+    public function testWritingToFileAndDeletingFile()
     {
-        $this->filesystem->uploadFile(self::FILE_NAME, self::FILE_CONTENT);
+        $this->filesystem->writeToFile(self::FILE_NAME, self::FILE_CONTENT);
         $this->assertTrue($this->filesystem->fileExists(self::FILE_NAME));
 
         $this->filesystem->deleteFile(self::FILE_NAME);
@@ -54,7 +54,7 @@ class FilesystemTest extends TestCase
 
     public function testGettingFileContent()
     {
-        $this->filesystem->uploadFile(self::FILE_NAME, self::FILE_CONTENT);
+        $this->filesystem->writeToFile(self::FILE_NAME, self::FILE_CONTENT);
         $this->assertEquals(self::FILE_CONTENT, $this->filesystem->getFileContent(self::FILE_NAME));
 
         $this->assertNull($this->filesystem->getFileContent(self::NOT_EXISTING_FILE_NAME));
@@ -62,7 +62,7 @@ class FilesystemTest extends TestCase
 
     public function testGettingFileSize()
     {
-        $this->filesystem->uploadFile(self::FILE_NAME, self::FILE_CONTENT);
+        $this->filesystem->writeToFile(self::FILE_NAME, self::FILE_CONTENT);
         $this->assertEquals(self::FILE_SIZE, $this->filesystem->getFileSize(self::FILE_NAME));
 
         $this->assertNull($this->filesystem->getFileSize(self::NOT_EXISTING_FILE_NAME));
@@ -70,7 +70,7 @@ class FilesystemTest extends TestCase
 
     public function testGettingFileMimeType()
     {
-        $this->filesystem->uploadFile(self::FILE_NAME, self::FILE_CONTENT);
+        $this->filesystem->writeToFile(self::FILE_NAME, self::FILE_CONTENT);
         $this->assertEquals(self::FILE_MIME_TYPE, $this->filesystem->getFileMimeType(self::FILE_NAME));
 
         $this->assertNull($this->filesystem->getFileMimeType(self::NOT_EXISTING_FILE_NAME));
@@ -78,7 +78,7 @@ class FilesystemTest extends TestCase
 
     public function testGettingFileLastModifiedTime()
     {
-        $this->filesystem->uploadFile(self::FILE_NAME, self::FILE_CONTENT);
+        $this->filesystem->writeToFile(self::FILE_NAME, self::FILE_CONTENT);
         $this->assertEquals(time(), $this->filesystem->getFileLastModifiedTime(self::FILE_NAME));
 
         $this->assertNull($this->filesystem->getFileLastModifiedTime(self::NOT_EXISTING_FILE_NAME));
@@ -86,7 +86,7 @@ class FilesystemTest extends TestCase
 
     public function testListPathnames()
     {
-        $this->filesystem->uploadFile(self::FILE_NAME, self::FILE_CONTENT);
+        $this->filesystem->writeToFile(self::FILE_NAME, self::FILE_CONTENT);
         $this->assertEquals(
             [$this->filesystem->prepareFullPath(self::FILE_NAME)],
             $this->filesystem->listPathnames('*')
@@ -97,7 +97,7 @@ class FilesystemTest extends TestCase
 
     public function testCopyingFile()
     {
-        $this->filesystem->uploadFile(self::FILE_NAME, self::FILE_CONTENT);
+        $this->filesystem->writeToFile(self::FILE_NAME, self::FILE_CONTENT);
         $this->assertTrue($this->filesystem->fileExists(self::FILE_NAME));
 
         $this->filesystem->copyFile(self::FILE_NAME, self::COPYING_DIRECTORY . '/' . self::FILE_NAME);
@@ -111,7 +111,7 @@ class FilesystemTest extends TestCase
 
     public function testMovingFile()
     {
-        $this->filesystem->uploadFile(self::FILE_NAME, self::FILE_CONTENT);
+        $this->filesystem->writeToFile(self::FILE_NAME, self::FILE_CONTENT);
         $this->assertTrue($this->filesystem->fileExists(self::FILE_NAME));
 
         $this->filesystem->moveFile(self::FILE_NAME, self::MOVING_DIRECTORY . '/' . self::FILE_NAME);
@@ -128,7 +128,7 @@ class FilesystemTest extends TestCase
     {
         $nonEmptyDirectory = self::TEST_DIRECTORY . '/' . self::NON_EMPTY_DIRECTORY;
 
-        $this->filesystem->uploadFile($nonEmptyDirectory . '/' . self::FILE_NAME, self::FILE_CONTENT);
+        $this->filesystem->writeToFile($nonEmptyDirectory . '/' . self::FILE_NAME, self::FILE_CONTENT);
 
         for ($i = 0; $i < 3; $i++) {
             $this->filesystem->createDirectory(self::TEST_DIRECTORY . "/$i");
@@ -164,7 +164,7 @@ class FilesystemTest extends TestCase
     {
         $nonEmptyDirectory = self::TEST_DIRECTORY . '/' . self::NON_EMPTY_DIRECTORY;
 
-        $this->filesystem->uploadFile($nonEmptyDirectory . '/' . self::FILE_NAME, self::FILE_CONTENT);
+        $this->filesystem->writeToFile($nonEmptyDirectory . '/' . self::FILE_NAME, self::FILE_CONTENT);
 
         for ($i = 0; $i < 3; $i++) {
             $this->filesystem->createDirectory(self::TEST_DIRECTORY . "/$i");
