@@ -1,3 +1,5 @@
+# This is an archive repository. Instead, watch <a href="https://github.com/max-s-lab/php-local-filesystem">php-local-filesystem</a>
+
 <h1 align="center">
   MaxSLab PHP Filesystem Library 
 </h1>
